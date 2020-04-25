@@ -8,43 +8,43 @@ import java.util.ArrayList;
 
 public class LineaHorizonte {
 	
-	private ArrayList <Punto> LineaHorizonte ;
+	private ArrayList <Punto> lineaHorizonte ;
 	
     /*
      * Constructor sin par�metros
      */
     public LineaHorizonte()
     {
-        LineaHorizonte = new ArrayList <Punto>();
+        lineaHorizonte = new ArrayList <Punto>();
     }
             
     /*
      * m�todo que devuelve un objeto de la clase Punto
      */
     public Punto getPunto(int i) {
-        return (Punto)this.LineaHorizonte.get(i);
+        return (Punto)this.lineaHorizonte.get(i);
     }
     
     // A�ado un punto a la l�nea del horizonte
     public void addPunto(Punto p)
     {
-        LineaHorizonte.add(p);
+        lineaHorizonte.add(p);
     }    
     
     // m�todo que borra un punto de la l�nea del horizonte
     public void borrarPunto(int i)
     {
-        LineaHorizonte.remove(i);
+        lineaHorizonte.remove(i);
     }
     
     public int size()
     {
-        return LineaHorizonte.size();
+        return lineaHorizonte.size();
     }
     // m�todo que me dice si la l�nea del horizonte est� o no vac�a
     public boolean isEmpty()
     {
-        return LineaHorizonte.isEmpty();
+        return lineaHorizonte.isEmpty();
     }
    
     /*
@@ -76,14 +76,14 @@ public class LineaHorizonte {
     
     public void imprimir (){
     	
-    	for(int i=0; i< LineaHorizonte.size(); i++ ){
+    	for(int i=0; i< lineaHorizonte.size(); i++ ){
     		//System.out.println("X: " + LineaHorizonte.get(i).getX() + " Y: " + LineaHorizonte.get(i).getY());
     		System.out.println(cadena(i));
     	}
     }
     
     public String cadena (int i){
-    	Punto p = LineaHorizonte.get(i);
+    	Punto p = lineaHorizonte.get(i);
     	int x = p.getX();
     	int y = p.getY();
     	String linea = "Punto [x=";
