@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+ 
 
 public class LineaHorizonte {
 	
-	private ArrayList <Punto> lineaHorizonte ;
+	static final PrintWriter OUT = null;
+	
+	private ArrayList <Punto> lineaHorizonte;
 	
     /*
      * Constructor sin par�metros
@@ -53,17 +55,17 @@ public class LineaHorizonte {
       mediante la t�cnica de divide y vencer�s.
      */
     
-    public void guardaLineaHorizonte (String fichero, Punto p, FileWriter fileWriter, PrintWriter out, int i)
+    public void guardaLineaHorizonte (String fichero)
     {
         try
         {
-            p = new Punto();
-            fileWriter = new FileWriter(fichero);
-            out = new PrintWriter (fileWriter);
+            FileWriter fileWriter = new FileWriter(fichero);
+            PrintWriter out = new PrintWriter (fileWriter);
+            Punto p = new Punto();
          
-            for(i=0; i<this.size(); i++)
+            for(int i=0; i<this.size(); i++)
             {
-                p=(getPunto(i));
+                p=getPunto(i);
                 out.print(p.getX());
                 out.print(" ");
                 out.print(p.getY());
@@ -78,7 +80,7 @@ public class LineaHorizonte {
     	
     	for(int i=0; i< lineaHorizonte.size(); i++ ){
     		//System.out.println("X: " + LineaHorizonte.get(i).getX() + " Y: " + LineaHorizonte.get(i).getY());
-    		System.out.println(cadena(i));
+    		OUT.print(cadena(i));
     	}
     }
     

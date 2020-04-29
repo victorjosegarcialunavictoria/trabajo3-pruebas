@@ -1,5 +1,7 @@
 package etsisi.ems2020.trabajo3.lineadehorizonte;
 
+import java.io.PrintWriter;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +12,8 @@ import org.junit.runner.notification.Failure;
 import junit.framework.TestCase;
 
 public class CiudadTest extends TestCase{
+	
+	static final PrintWriter OUT = null;
 
 	public CiudadTest(String sTestName) {
 		super(sTestName);
@@ -90,7 +94,7 @@ public class CiudadTest extends TestCase{
 	public static void main(String args[]) {
 		Result result = JUnitCore.runClasses(CiudadTest.class);
 		for (Failure failure : result.getFailures()) {
-			System.out.println(failure.toString());
+			OUT.println(failure.toString());
 		}
 
 	}
