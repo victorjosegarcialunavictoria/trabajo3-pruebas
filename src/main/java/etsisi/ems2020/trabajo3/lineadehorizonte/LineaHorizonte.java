@@ -88,11 +88,6 @@ public class LineaHorizonte {
     	Punto p = lineaHorizonte.get(i);
     	int x = p.getX();
     	int y = p.getY();
-    	String linea = "Punto [x=";
-		linea = linea + x;
-		linea = linea + ", y=";
-		linea = linea + y;
-		linea = linea +  "]";
-		return linea;
+		return "Punto [x=" + x +", y="+ y +"]";
     }
 }
