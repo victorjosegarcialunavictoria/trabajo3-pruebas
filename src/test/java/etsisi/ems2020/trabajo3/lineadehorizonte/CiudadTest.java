@@ -33,18 +33,12 @@ public class CiudadTest extends TestCase{
 		try {			
 			
 			c = new Ciudad();
-			Edificio e1 = new Edificio(1,4,3);
-			c.addEdificio(e1);
-			Edificio e2 = new Edificio(2,7,9);
-			c.addEdificio(e2);
-			Edificio e3 = new Edificio(4,4,12);
-			c.addEdificio(e3);	
-			Edificio e4 = new Edificio(6,9,8);
-			c.addEdificio(e4);
-			Edificio e5 = new Edificio(11,6,13);
-			c.addEdificio(e5);
-			Edificio e6 = new Edificio(14,2,15);
-			c.addEdificio(e6);		
+			c.addEdificio(1,4,3);
+			c.addEdificio(2,7,9);
+			c.addEdificio(4,4,12);
+			c.addEdificio(6,9,8);
+			c.addEdificio(11,6,13);
+			c.addEdificio(14,2,15);		
 
 			
 			linea = c.getLineaHorizonte();			
@@ -71,10 +65,8 @@ public class CiudadTest extends TestCase{
 		try {			
 			
 			c = new Ciudad();
-			Edificio e1 = new Edificio(3,5,6);
-			c.addEdificio(e1);
-			Edificio e2 = new Edificio(4,3,9);
-			c.addEdificio(e2);
+			c.addEdificio(3,5,6);
+			c.addEdificio(4,3,9);
 			
 			linea = c.getLineaHorizonte();			
 			assertTrue(linea.getPunto(0).getX()== 3  && linea.getPunto(0).getY()==5);

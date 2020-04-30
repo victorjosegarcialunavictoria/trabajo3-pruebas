@@ -1,31 +1,34 @@
 package etsisi.ems2020.trabajo3.lineadehorizonte;
 
-import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class Main {
 	
-	static final PrintWriter OUT = null;
+	/** 
+	 * Creacion de variables miembro
+	 */
+	private static final PrintWriter OUT = null;
 
-	public static void main(String[] args) {
-		
-		
+	/**
+	 * Creacion de metodo principal
+	 */
+	public static void main(final String[] args) {
 		/*
 		 Empezamos a ejecutar el c�digo para intentar hacer el ejercicio
 		 que nos piden, calcular la l�nea del horizonte de una ciudad.
 		 */
-        Ciudad c = new Ciudad();
-        c.cargarEdificios("ciudad1.txt");
+        final Ciudad ciudad = new Ciudad();
+        ciudad.cargarEdificios("ciudad1.txt");
         
-        // Creamos l�nea del horizonte
+        // Creamos linea del horizonte
         LineaHorizonte linea = new LineaHorizonte();
-        linea = c.getLineaHorizonte();
-        //Guardamos la linea del horizonte
+        linea = ciudad.getLineaHorizonte();
         
+        //Guardamos la linea del horizonte        
         linea.guardaLineaHorizonte("salida.txt");
         OUT.println("-- Proceso finalizado Correctamente --");
-        Punto  p2 = new Punto(5,6);
-        OUT.println(p2);
+        final Punto punto = new Punto(5,6);
+        OUT.println(punto);
 	}
 
 }
