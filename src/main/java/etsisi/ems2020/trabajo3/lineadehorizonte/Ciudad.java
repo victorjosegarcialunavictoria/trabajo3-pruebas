@@ -1,66 +1,112 @@
 package etsisi.ems2020.trabajo3.lineadehorizonte;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
+/**
  Clase fundamental.
- Sirve para hacer la lectura del fichero de entrada que contiene los datos de como
- están situados los edificios en el fichero de entrada. xi, xd, h, siendo. Siendo
- xi la coordenada en X origen del edificio iésimo, xd la coordenada final en X, y h la altura del edificio.
- 
+ Contiene los datos de como están situados los edificios 
+ en el fichero de entrada. xi, xd, h, siendo
+ xi la coordenada en X origen del edificio iésimo, 
+ xd la coordenada final en X, 
+ y h la altura del edificio.
  */
 public class Ciudad {
 	
-	static final PrintWriter OUT = null;
-
-	private ArrayList<Edificio> ciudad;
-
+	/**
+	 * Variable creada para imprimir por pantalla
+	 */
+	private static final PrintWriter OUT = null;
+	
+	/**
+	 * ArrayList que contiene todos los edificios que conforman la ciudad
+	 */
+	private static ArrayList<Edificio> edificios;
+	
+	/**
+	 * Define el máximo número de edificios que va a tener la ciudad
+	 */
+	private static final int NUM_EDIFICIOS = 5;
+	
+	/**
+	 * Contructor de la clase
+	 */
 	public Ciudad() {
 
 		/*
 		 * Generamos una ciudad de manera aleatoria para hacer pruebas.
 		 */
-		ciudad = new ArrayList<Edificio>();
-		int n = 5;
-		int i = 0;
-		int xi, y, xd;
-		for (i = 0; i < n; i++) {
-			xi = (int) (Math.random() * 100);
-			y = (int) (Math.random() * 100);
-			xd = (int) (xi + (Math.random() * 100));
-			this.addEdificio(xi, y, xd);
+		edificios = new ArrayList<Edificio>();
+		try {
+			metodoRandom(NUM_EDIFICIOS);
+		}catch (NullPointerException e) {
+			OUT.println(e.getMessage());
 		}
 
-		ciudad = new ArrayList<Edificio>();
+		
 	}
+	
+	/**
+	 * 
+	 * @param posicion
+	 * @return un Edificio
+	 * Devuelve el edificio de la posicion solicitada
+	 */
 
-	public Edificio getEdificio(int posicion) {
-		return (Edificio) this.ciudad.get(posicion);
+	public Edificio getEdificio(final int posicion) {
+		return (Edificio) this.edificios.get(posicion);
 	}
+	
+	/**
+	 * Añade un edificio con las coordenadas y la altura pasadas por parámetro
+	 * @param coordOrigen
+	 * @param altura
+	 * @param coordFinal
+	 */
 
-	public void addEdificio(int coordOrigen, int altura, int coordFinal) {
-		ciudad.add(new Edificio(coordOrigen, altura, coordFinal));
+	public void addEdificio(final int coordOrigen, final int altura, final int coordFinal) {
+		edificios.add(new Edificio(coordOrigen, altura, coordFinal));
 	}
+	
+	/**
+	 * Elimina el edificio de la posicion que se pasa por parametro
+	 * @param posicion
+	 */
 
-	public void removeEdificio(int posicion) {
-		ciudad.remove(posicion);
+	public void removeEdificio(final int posicion) {
+		edificios.remove(posicion);
 	}
+	
+	/**
+	 * 
+	 * @return el tamaño de la ciudad
+	 * Devuelve el numero de edificios
+	 */
 
 	public int size() {
-		return ciudad.size();
+		return edificios.size();
 	}
-
+	
+	/**
+	 * Obtener una linea horizonte
+	 */
 	public LineaHorizonte getLineaHorizonte() {
 		// pi y pd, representan los edificios de la izquierda y de la derecha.
-		int pi = 0;
-		int pd = ciudad.size() - 1;
-		return crearLineaHorizonte(pi, pd);
+		final int edificioIzq = 0;
+		final int edificioDcha = edificios.size() - 1;
+		return crearLineaHorizonte(edificioIzq, edificioDcha);
 	}
-
-	public LineaHorizonte crearLineaHorizonte(int posicionIzq, int posicionDrxa) {
+	
+	/**
+	 * Encargado de crear una linea horizonte con los valores pasados como parámetros
+	 * @param posicionIzq
+	 * @param posicionDrxa
+	 * @return una lineaHorizonte
+	 */
+	public LineaHorizonte crearLineaHorizonte(final int posicionIzq, final int posicionDrxa) {
 		LineaHorizonte linea = new LineaHorizonte(); // LineaHorizonte de salida
 		
 		Edificio edificio = new Edificio();
@@ -74,11 +120,11 @@ public class Ciudad {
 			linea.aniadirEdificio(edificio);
 		} else {
 // Edificio mitad
-			int medio = (posicionIzq + posicionDrxa) / 2;
+			final int medio = (posicionIzq + posicionDrxa) / 2;
 
-			LineaHorizonte s1 = this.crearLineaHorizonte(posicionIzq, medio);
-			LineaHorizonte s2 = this.crearLineaHorizonte(medio + 1, posicionDrxa);
-			linea = linea.lineaHorizonteFussion(s1, s2);
+			final LineaHorizonte horizonte1 = this.crearLineaHorizonte(posicionIzq, medio);
+			final LineaHorizonte horizonte2 = this.crearLineaHorizonte(medio + 1, posicionDrxa);
+			linea = linea.lineaHorizonteFussion(horizonte1, horizonte2);
 		}
 		return linea;
 	}
@@ -97,21 +143,31 @@ public class Ciudad {
 	 * la clase del 9/3/2020, pocos días antes del estado de alarma.
 	 */
 
-	public void cargarEdificios(String fichero) {
-
+	public void cargarEdificios(final String fichero) {
+		Scanner scanner = null;
 		try {
-			Scanner sr = new Scanner(new File(fichero));
+			scanner = new Scanner(new File(fichero));
 
-			while (sr.hasNext()) {
-				this.addEdificio(sr.nextInt(), sr.nextInt(), sr.nextInt());
+			while (scanner.hasNext()) {
+				this.addEdificio(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
 			}	
-			sr.close();
-		} catch (Exception e) {
+			
+		} catch (FileNotFoundException e) {
+			OUT.println(e.getMessage());
+		}
+		finally {
+			scanner.close();
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param numeroEdificios Numero de edificios de ciudad
+	 * Crea los edificios de la ciudad y los añade a la ciudad
+	 */
 
-	public void metodoRandom(int numeroEdificios) {
+	public void metodoRandom(final int numeroEdificios) {
 		for (int i = 0; i < numeroEdificios; i++) {
 			final int coordOrigen = (int) (Math.random() * 100);
 			final int altura = coordOrigen;
@@ -119,10 +175,5 @@ public class Ciudad {
 			this.addEdificio(coordOrigen, altura, coordFinal);
 		}
 	}
-	
-	
-
-   
-	
 	
 }

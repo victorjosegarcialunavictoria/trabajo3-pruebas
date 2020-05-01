@@ -6,7 +6,6 @@ public class Helper {
 		
 	}
 	
-	
 	/**
     Función que recibe como parámetros 2 puntos y devuelve el de mayor altura
      */

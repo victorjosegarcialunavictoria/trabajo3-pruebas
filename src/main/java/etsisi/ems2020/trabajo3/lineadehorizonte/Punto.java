@@ -1,16 +1,22 @@
 package etsisi.ems2020.trabajo3.lineadehorizonte;
 
-/*
- * 
+/**
  * @author Juan Manuel
  * Clase para definir un punto sobre el eje
  * cartesiano de coordendas
  */
 public class Punto {
-	int coordX;
-    int coordY;
+	
+	/**
+	 * Coordenada X del punto
+	 */
+	private transient int coordX;
+	/**
+	 * Coordenada Y del punto
+	 */
+    private transient int coordY;
 
-    /*
+    /**
      * Constructor sin par�metros de un punto en concreto
      */
     public Punto() {
@@ -18,16 +24,16 @@ public class Punto {
         this.coordY = 0;
     }
     
-    /*
+    /**
      * Constructos con par�metros de un punto
      * @param x
      * @param y
      */
-    public Punto(int coordX, int coordY) {
+    public Punto(final int coordX, final int coordY) {
         this.coordX = coordX;
         this.coordY = coordY;
     }
-    /*
+    /**
      * 
      * Get de la coordenada X
      */
@@ -35,26 +41,30 @@ public class Punto {
         return coordX;
     }
     
-    /*
+    /**
      * 
      * Set de la coordenada X
      */
-    public void setX(int coordX) {
+    public void setX(final int coordX) {
         this.coordX = coordX;
     }
-    /*
+    /**
  	   Get de la coordenada Y
      */
     public int getY() {
         return coordY;
     }
-    /* 
+    
+    /** 
      * Set de la coordenada Y
      */
-    public void setY(int coordY) {
+    public void setY(final int coordY) {
         this.coordY = coordY;
     }
 
+    /**
+     * Metodo toString de la clase
+     */
 	@Override
 	public String toString() {
 		return "Punto [x=" + coordX +", y="+ coordY +"]";
