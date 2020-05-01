@@ -62,23 +62,16 @@ public class Ciudad {
 
 	public LineaHorizonte crearLineaHorizonte(int posicionIzq, int posicionDrxa) {
 		LineaHorizonte linea = new LineaHorizonte(); // LineaHorizonte de salida
-		Punto punto1 = new Punto(); // punto donde se guardara en su X la Xi del efificio y en su Y la altura del
-								// edificio
-		Punto punto2 = new Punto(); // punto donde se guardara en su X la Xd del efificio y en su Y le pondremos el
-								// valor 0
+		
 		Edificio edificio = new Edificio();
 
 // Caso base, la ciudad solo tiene un edificio, el perfil es el de ese edificio. 
 		if (posicionIzq == posicionDrxa) {
 			edificio = this.getEdificio(posicionIzq); // Obtenemos el único edificio y lo guardo en b
 // En cada punto guardamos la coordenada X y la altura.
-			punto1.setX(edificio.getXi());
-			punto1.setY(edificio.getY()); // guardo la altura
-			punto2.setX(edificio.getXd());
-			punto2.setY(0); // como el edificio se compone de 3 variables, en la Y de p2 le añadiremos un 0
+			 // como el edificio se compone de 3 variables, en la Y de p2 le añadiremos un 0
 // Añado los puntos a la línea del horizonte
-			linea.addPunto(punto1);
-			linea.addPunto(punto2);
+			linea.aniadirEdificio(edificio);
 		} else {
 // Edificio mitad
 			int medio = (posicionIzq + posicionDrxa) / 2;
@@ -103,7 +96,7 @@ public class Ciudad {
 		// y en prev guardaremos la previa del segmento anterior introducido
 		int altura1 = -1;
 		int altura2 = -1;
-		int prev = -1;
+		int previo = -1;
 		LineaHorizonte salida = new LineaHorizonte(); // LineaHorizonte de salida
 			
 		Punto p1 = new Punto(); 
@@ -124,29 +117,29 @@ public class Ciudad {
 
             if (p1.getX() < p2.getX()) // si X del s1 es menor que la X del s2
             {
-                juntarCosas(p1, p2, salida, prev);
+	            previo = compararYasignarPuntos(p1, p2, salida, previo);
                 linea1.borrarPunto(0); // en cualquier caso eliminamos el punto de s1 (tanto si se añade como si no es valido)
                 altura1 = p1.getY();   // actualizamos la altura s1y
             }
 
             else if (p1.getX() > p2.getX()) // si X del s1 es mayor que la X del s2
             {
-                juntarCosas(p2, p1, salida, prev);
+                previo = compararYasignarPuntos(p2, p1, salida, previo);
                 altura2 = p2.getY();   // actualizamos la altura s2y
                 linea2.borrarPunto(0); // en cualquier caso eliminamos el punto de s2 (tanto si se añade como si no es valido)
             }
             else // si la X del s1 es igual a la X del s2
             {
                 salida.addPunto(getPuntoMayor(p1, p2));
-                prev = getPuntoMayor(p1, p2).getY();
+                previo = getPuntoMayor(p1, p2).getY();
                 altura1 = p1.getY();   // actualizamos la s1y e s2y
                 altura2 = p2.getY();
                 linea1.borrarPunto(0); // eliminamos el punto del s1 y del s2
                 linea2.borrarPunto(0);
             }
         }
-		comoQuieras(salida, linea1, prev);
-	    comoQuieras(salida, linea2, prev);
+		previo = aniadirPuntos(salida, linea1, previo);
+	    previo = aniadirPuntos(salida, linea2, previo);
 		return salida;
 	}
 	/*
@@ -181,14 +174,16 @@ public class Ciudad {
 	/**
     Función auxiliar para fusionar 2 LineaHorizonte en una final/definitiva
      */
-     public void juntarCosas(Punto puntoMayor, Punto puntoMenor, LineaHorizonte lineaDefinitiva, int previo){
+     public int compararYasignarPuntos(Punto puntoMayor, Punto puntoMenor, LineaHorizonte lineaDefinitiva, int previo){
         Punto pAux = new Punto();
+        
         pAux.setX(puntoMayor.getX());
         pAux.setY(Math.max(puntoMayor.getY(), puntoMenor.getY()));
         if (pAux.getY()!=previo){ // si este maximo no es igual al del segmento anterior
             lineaDefinitiva.addPunto(pAux); // añadimos el punto al LineaHorizonte definitivo
-            previo = Math.max(puntoMayor.getY(), puntoMenor.getY());    // actualizamos prev
+            return Math.max(puntoMayor.getY(), puntoMenor.getY());    // actualizamos prev
         }
+        return previo;
     }
 
     /**
@@ -201,18 +196,19 @@ public class Ciudad {
 			return punto2;
 	}
 	
-	public void comoQuieras(LineaHorizonte lineaDefinitiva, LineaHorizonte linea, int previo) {
+	public int aniadirPuntos(LineaHorizonte lineaDefinitiva, LineaHorizonte linea, int previo) { //Revisar
+		int previoAux = previo;
 		while (!linea.isEmpty()) {
-
 			Punto pAux = linea.getPunto(0); // guardamos en paux el primer punto
-
-			if (pAux.getY() != previo) // si paux no tiene la misma altura del segmento previo
+			
+			if (pAux.getY() != previoAux) // si paux no tiene la misma altura del segmento previo
 			{
 				lineaDefinitiva.addPunto(pAux); // lo añadimos al LineaHorizonte de salida
-				previo = pAux.getY(); // y actualizamos prev
+				previoAux = pAux.getY(); // y actualizamos prev
 			}
 			linea.borrarPunto(0); // en cualquier caso eliminamos el punto de s1 (tanto si se añade como si no es
 									// valido)
 		}
+		return previoAux;
 	}
 }

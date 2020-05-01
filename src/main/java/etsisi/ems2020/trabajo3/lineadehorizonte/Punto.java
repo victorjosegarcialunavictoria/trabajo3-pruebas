@@ -7,15 +7,15 @@ package etsisi.ems2020.trabajo3.lineadehorizonte;
  * cartesiano de coordendas
  */
 public class Punto {
-	int x;
-    int y;
+	int coordX;
+    int coordY;
 
     /*
      * Constructor sin par�metros de un punto en concreto
      */
     public Punto() {
-        this.x = 0;
-        this.y = 0;
+        this.coordX = 0;
+        this.coordY = 0;
     }
     
     /*
@@ -23,41 +23,41 @@ public class Punto {
      * @param x
      * @param y
      */
-    public Punto(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Punto(int coordX, int coordY) {
+        this.coordX = coordX;
+        this.coordY = coordY;
     }
     /*
      * 
      * Get de la coordenada X
      */
     public int getX() {
-        return x;
+        return coordX;
     }
     
     /*
      * 
      * Set de la coordenada X
      */
-    public void setX(int x) {
-        this.x = x;
+    public void setX(int coordX) {
+        this.coordX = coordX;
     }
     /*
  	   Get de la coordenada Y
      */
     public int getY() {
-        return y;
+        return coordY;
     }
     /* 
      * Set de la coordenada Y
      */
-    public void setY(int y) {
-        this.y = y;
+    public void setY(int coordY) {
+        this.coordY = coordY;
     }
 
 	@Override
 	public String toString() {
-		return "Punto [x=" + x +", y="+ y +"]";
+		return "Punto [x=" + coordX +", y="+ coordY +"]";
 	}
     
     

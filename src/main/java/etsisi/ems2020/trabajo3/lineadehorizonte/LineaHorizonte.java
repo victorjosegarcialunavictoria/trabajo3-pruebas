@@ -76,6 +76,20 @@ public class LineaHorizonte {
         catch(Exception e){}
     }
     
+    public void aniadirEdificio(Edificio edificio) {
+    	Punto punto1 = new Punto(); // punto donde se guardara en su X la Xi del efificio y en su Y la altura del
+		// edificio
+    	Punto punto2 = new Punto(); // punto donde se guardara en su X la Xd del efificio y en su Y le pondremos el
+		// valor 0
+    	punto1.setX(edificio.getXi());
+		punto1.setY(edificio.getY()); // guardo la altura
+		punto2.setX(edificio.getXd());
+		punto2.setY(0);
+		
+		lineaHorizonte.add(punto1);
+		lineaHorizonte.add(punto2);
+    }
+    
     public void imprimir (){
     	
     	for(int i=0; i< lineaHorizonte.size(); i++ ){
