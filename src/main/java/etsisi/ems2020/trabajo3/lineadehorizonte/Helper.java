@@ -33,16 +33,16 @@ public class Helper {
 	}
     
 	/**
-    Función auxiliar para fusionar 2 LineaHorizonte en una final/definitiva
+    Función auxiliar para fusionar 2 LineaHorizonte
      */
      public int compararYasignarPuntos(Punto puntoMayor, Punto puntoMenor, LineaHorizonte lineaDefinitiva, int previo){
         Punto pAux = new Punto();
         
-        pAux.setX(puntoMayor.getX());
+        pAux.setX(puntoMenor.getX());
         pAux.setY(Math.max(puntoMayor.getY(), puntoMenor.getY()));
         if (pAux.getY()!=previo){ // si este maximo no es igual al del segmento anterior
             lineaDefinitiva.addPunto(pAux); // añadimos el punto al LineaHorizonte definitivo
-            return Math.max(puntoMayor.getY(), puntoMenor.getY());    // actualizamos prev
+            previo = pAux.getY();    // actualizamos prev
         }
         return previo;
     }

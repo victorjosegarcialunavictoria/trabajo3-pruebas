@@ -90,53 +90,7 @@ public class Ciudad {
 		return edificios.size();
 	}
 	
-	/**
-	 * Obtener una linea horizonte
-	 */
-	public LineaHorizonte getLineaHorizonte() {
-		// pi y pd, representan los edificios de la izquierda y de la derecha.
-		final int edificioIzq = 0;
-		final int edificioDcha = edificios.size() - 1;
-		return crearLineaHorizonte(edificioIzq, edificioDcha);
-	}
-	
-	/**
-	 * Encargado de crear una linea horizonte con los valores pasados como parámetros
-	 * @param posicionIzq
-	 * @param posicionDrxa
-	 * @return una lineaHorizonte
-	 */
-	public LineaHorizonte crearLineaHorizonte(final int posicionIzq, final int posicionDrxa) {
-		LineaHorizonte linea = new LineaHorizonte(); // LineaHorizonte de salida
-		
-		Edificio edificio = new Edificio();
 
-// Caso base, la ciudad solo tiene un edificio, el perfil es el de ese edificio. 
-		if (posicionIzq == posicionDrxa) {
-			edificio = this.getEdificio(posicionIzq); // Obtenemos el único edificio y lo guardo en b
-// En cada punto guardamos la coordenada X y la altura.
-			 // como el edificio se compone de 3 variables, en la Y de p2 le añadiremos un 0
-// Añado los puntos a la línea del horizonte
-			linea.aniadirEdificio(edificio);
-		} else {
-// Edificio mitad
-			final int medio = (posicionIzq + posicionDrxa) / 2;
-
-			final LineaHorizonte horizonte1 = this.crearLineaHorizonte(posicionIzq, medio);
-			final LineaHorizonte horizonte2 = this.crearLineaHorizonte(medio + 1, posicionDrxa);
-			linea = linea.lineaHorizonteFussion(horizonte1, horizonte2);
-		}
-		return linea;
-	}
-
-	/**
-	 * Función encargada de fusionar los dos LineaHorizonte obtenidos por la técnica
-	 * divide y vencerás. Es una función muy compleja ya que es la encargada de
-	 * decidir si un edificio solapa a otro, si hay edificios contiguos, etc. y
-	 * solucionar dichos problemas para que el LineaHorizonte calculado sea el
-	 * correcto.
-	 */
-	
 	/*
 	 * Método que carga los edificios que me pasan en el archivo cuyo nombre se
 	 * encuentra en "fichero". El formato del fichero nos lo ha dado el profesor en
